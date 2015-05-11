@@ -313,7 +313,7 @@ var compile = function(schema, cache, root, reporter, opts) {
         var result = gensym('result');
         validate('var %s = %s(%s)', result, n, name)
         validate('if (!(%s)) {', result)
-        error('referenced schema does not match', null, n)
+        error('referenced schema does not match', null, n + ".errors")
         validate('}')
       } else {
         throw new Error('referenced schema does not exists "' + node.$ref + '"');
