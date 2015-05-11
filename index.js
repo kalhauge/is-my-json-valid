@@ -24,7 +24,7 @@ var get = function(obj, additionalSchemas, ptr) {
   try {
     return jsonpointer.get(obj, decodeURI(ptr))
   } catch (err) {
-    var other = additionalSchemas[ptr] || additionalSchemas[ptr.replace(/^#/, '')]
+    var other = additionalSchemas[ptr]
     return other || null
   }
 }
@@ -313,6 +313,8 @@ var compile = function(schema, cache, root, reporter, opts) {
         validate('if (!(%s(%s))) {', n, name)
         error('referenced schema does not match')
         validate('}')
+      } else {
+        error('referenced schema does not exists');
       }
     }
 
