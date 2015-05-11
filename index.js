@@ -314,7 +314,7 @@ var compile = function(schema, cache, root, reporter, opts) {
         error('referenced schema does not match')
         validate('}')
       } else {
-        error('referenced schema does not exists', node.$ref);
+        error('referenced schema does not exists', null, node.$ref);
       }
     }
 
