@@ -306,11 +306,13 @@ var compile = function(schema, cache, root, reporter, opts) {
           cache[node.$ref] = function proxy(data) {
             return fn(data)
           }
-          fn = compile(sub, cache, root, false, opts)
+          fn = compile(sub, cache, root, true, opts)
         }
         var n = gensym('ref')
         scope[n] = fn
-        validate('if (!(%s(%s))) {', n, name)
+        var result = gensym('result');
+        validate('var %s = %s(%s)', result, n, name)
+        validate('if (!(%s)) {', result)
         error('referenced schema does not match')
         validate('}')
       } else {
